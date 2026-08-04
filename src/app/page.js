@@ -5,12 +5,29 @@ import { PineconeLogo } from "./icons/PineconeLogo";
 import { VectorLogo } from "./icons/VectorLogo";
 import { BackVectorLogo } from "./icons/BackVectorLogo";
 import { useState } from "react";
+
+function checkLocal() {
+  const texts = typeof window !== "undefined" ? localStorage.getItem("texts") : null;
+
+  if (texts) {
+    return JSON.parse(texts)
+  } else{
+    return []
+  } 
+}
 export default function Home() {
   const [steps, setSteps] = useState(1);
+  const [text, setTexts] = useState(checkLocal)
   const firstStep = steps === 1;
   const secondStep = steps === 2;
   const thirdStep = steps === 3;
   const final = steps === 4;
+
+  const handleSaveText = (newTexts) => {
+    const updatedTexts = [...text, newTexts];
+    setTexts(updatedTexts);
+    localStorage.setItem("texts", JSON.stringify(updatedTexts));
+  };
   const handleStep = () => {
     setSteps(steps + 1);
   };
@@ -19,7 +36,7 @@ export default function Home() {
   };
   return (
     <div className="w-screen h-screen flex justify-center items-center ">
-      {firstStep && (
+      { firstStep && (
         <div className="w-120 h-163.75  flex justify-center  border rounded-lg">
           <div className=" p-8 flex  flex-col justify-between ">
             <div className="w-104 h-96.25 ">
