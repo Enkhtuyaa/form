@@ -21,19 +21,29 @@ const checkEachCharacter1 = (value1) => {
   }
   return true;
 };
+const ALREADY_TAKEN_USER_NAME = ["bat", "bold", "test", "tuya"];
 
+const checkEachCharacter2 = (value3) => {
+  for (let i = 0; i < value3.length; i++) {
+    if (!ALREADY_TAKEN_USER_NAME.includes(value3[i])) {
+      return false;
+    }
+  }
+  return true;
+};
 export const StepOne = (props) => {
   const [firstName, setFirstName] = useState("");
   const [firstNameError, setFirstNameError] = useState("");
   const [lastName, setLastName] = useState("");
   const [lastNameError, setLastNameError] = useState("");
-
+  const [Username, setUsername] = useState("");
+  const [UsernameError, setUsernameError] = useState("");
 
   const handleFirstNameInputChange = (e) => {
     setFirstName(e.target.value);
     // console.log(e, "this is props")
   };
-//   console.log(firstName);
+  //   console.log(firstName);
   const validateFirstName = (firstName) => {
     const allLowerFirstName = firstName.trim().toLowerCase();
     if (!checkEachCharacter(allLowerFirstName)) {
@@ -42,27 +52,39 @@ export const StepOne = (props) => {
       return "";
     }
   };
-  const handleLastNameInputChange1 = (e) =>{
+  const handleLastNameInputChange1 = (e) => {
     setLastName(e.target.value);
-  }
+  };
   const validateLastName1 = (lastName) => {
     const allLowerLastName = lastName.trim().toLowerCase();
-    if (!checkEachCharacter1 (allLowerLastName)) {
+    if (!checkEachCharacter1(allLowerLastName)) {
       return "Last Name only contains letter";
+    } else {
+      return "";
+    }
+  };
+  const handleUsernameInputChange2 = (e) => {
+    setUsername(e.target.value);
+  };
+  const validateUsername = (Username) => {
+    const allLowerUsername = Username.toLowerCase();
+    if (!checkEachCharacter2(allLowerUsername)) {
+      return "Username only contains letter";
     } else {
       return "";
     }
   };
   const handleNextButtonClick = () => {
     const firstError = validateFirstName(firstName);
-    const lastError = validateLastName1(lastName)
+    const lastError = validateLastName1(lastName);
+    const userError = validateUsername(Username);
     setFirstNameError(firstError);
-    setLastNameError(lastError)
-    if (firstError === "" && lastError == "") {
+    setLastNameError(lastError);
+    setUsernameError(userError);
+    if (firstError === "" && lastError === "" && userError === "") {
       props.handleNextStep();
     }
   };
-
 
   return (
     <div className="w-120 h-163.75  flex justify-center  border rounded-lg">
@@ -105,15 +127,16 @@ export const StepOne = (props) => {
             </p>
             <input
               className="w-104 h-11 rounded-lg border border-blue-400"
-              placeholder="Placeholder"
+              placeholder="Username"
+              onChange={handleUsernameInputChange2}
+              value={Username}
             />
+             <span className="text-red-600 text-sm"> {UsernameError}</span>
           </div>
         </div>
         <button
           className="w-104 h-11 rounded-md bg-black text-white flex justify-center items-center"
           onClick={handleNextButtonClick}
-         
-        //   onClick ={handleNextButtonClick1}
         >
           Continue <span> {props.steps}/3</span>
           <span>
