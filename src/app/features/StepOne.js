@@ -12,26 +12,36 @@ const checkEachCharacter = (value) => {
   return true;
 };
 
-const letters1 = "qwertyuiopasdfghjklzxcvbnm";
-const checkEachCharacter1 = (value1) => {
-  for (let i = 0; i < value1.length; i++) {
-    if (!letters1.includes(value1[i])) {
-      return false;
-    }
-  }
-  return true;
-};
 const ALREADY_TAKEN_USER_NAME = ["bat", "bold", "test", "tuya"];
 
-const checkEachCharacter2 = (value3) => {
-  for (let i = 0; i < value3.length; i++) {
-    if (!ALREADY_TAKEN_USER_NAME.includes(value3[i])) {
-      return false;
-    }
+const checkEachCharacters = (name) => {
+  // console.log("checkEachCharacters deer orj irsen name:", name);
+
+  if (!ALREADY_TAKEN_USER_NAME.includes(name.toLowerCase())) {
+    return false;
+    // console.log("ene ner hediinee bna");
+  } else {
+    return true;
+    // console.log("iim nertei baij bolno");
   }
-  return true;
+
+  // if (!taken.includes) {
+  //   return false;
+  // }
+  // return true;
 };
+
+// checkEachCharacters("BAT");
+
+// const inputUsername = ""
+// if (ALREADY_TAKEN_USER_NAME.includes(inputUsername)) {
+//   return false
+// }
+
 export const StepOne = (props) => {
+  console.log("props for stepOne: ", props);
+  console.log("step for stepOne: ", props.step);
+
   const [firstName, setFirstName] = useState("");
   const [firstNameError, setFirstNameError] = useState("");
   const [lastName, setLastName] = useState("");
@@ -46,29 +56,42 @@ export const StepOne = (props) => {
   //   console.log(firstName);
   const validateFirstName = (firstName) => {
     const allLowerFirstName = firstName.trim().toLowerCase();
-    if (!checkEachCharacter(allLowerFirstName)) {
+    if (allLowerFirstName.length === 0) {
+      return "First Name Required";
+    } else if (!checkEachCharacter(allLowerFirstName)) {
       return "First Name only contains letter";
     } else {
       return "";
     }
   };
-  const handleLastNameInputChange1 = (e) => {
+  // console.log(allLowerFirstName);
+  // if (!checkEachCharacter(allLowerFirstName)) {
+  //   return "First Name only contains letter";
+  // } else {
+  //   return "";
+  // }
+
+  const handleLastNameInputChange = (e) => {
     setLastName(e.target.value);
   };
-  const validateLastName1 = (lastName) => {
+  const validateLastName = (lastName) => {
     const allLowerLastName = lastName.trim().toLowerCase();
-    if (!checkEachCharacter1(allLowerLastName)) {
+    if (allLowerLastName.length === 0) {
+      return "Last Name Required";
+    } else if (!checkEachCharacter(allLowerLastName)) {
       return "Last Name only contains letter";
     } else {
       return "";
     }
   };
-  const handleUsernameInputChange2 = (e) => {
+  const handleUsernameInputChange = (e) => {
     setUsername(e.target.value);
   };
   const validateUsername = (Username) => {
-    const allLowerUsername = Username.toLowerCase();
-    if (!checkEachCharacter2(allLowerUsername)) {
+    const allLowerUsername = Username.trim().toLowerCase();
+    if (allLowerUsername.length === 0) {
+      return "Username Required";
+    } else if (!checkEachCharacters(allLowerUsername)) {
       return "Username only contains letter";
     } else {
       return "";
@@ -76,11 +99,18 @@ export const StepOne = (props) => {
   };
   const handleNextButtonClick = () => {
     const firstError = validateFirstName(firstName);
-    const lastError = validateLastName1(lastName);
+    const lastError = validateLastName(lastName);
     const userError = validateUsername(Username);
+    // const userError = validateUsername(Username);
     setFirstNameError(firstError);
     setLastNameError(lastError);
     setUsernameError(userError);
+    // setUsernameError(userError);
+    // console.log(userError);
+    console.log(lastError);
+    console.log(firstError);
+    console.log(userError);
+
     if (firstError === "" && lastError === "" && userError === "") {
       props.handleNextStep();
     }
@@ -117,7 +147,7 @@ export const StepOne = (props) => {
             <input
               className="w-104 h-11 rounded-lg border border-blue-400"
               placeholder="Last name"
-              onChange={handleLastNameInputChange1}
+              onChange={handleLastNameInputChange}
               value={lastName}
             />
             <span className="text-red-600 text-sm"> {lastNameError}</span>
@@ -126,12 +156,12 @@ export const StepOne = (props) => {
               <span className="text-red-600 text-sm">*</span>
             </p>
             <input
-              className="w-104 h-11 rounded-lg border border-blue-400"
+              className={`w-104 h-11 rounded-lg border  ${UsernameError ? "border-red-400" : "border-blue-400"}`}
               placeholder="Username"
-              onChange={handleUsernameInputChange2}
+              onChange={handleUsernameInputChange}
               value={Username}
             />
-             <span className="text-red-600 text-sm"> {UsernameError}</span>
+            <span className="text-red-600 text-sm"> {UsernameError}</span>
           </div>
         </div>
         <button

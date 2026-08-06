@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 
 import { PineconeLogo } from "./icons/PineconeLogo";
 import { VectorLogo } from "./icons/VectorLogo";
@@ -7,8 +6,10 @@ import { BackVectorLogo } from "./icons/BackVectorLogo";
 import { useState } from "react";
 import { StepOne } from "./features/StepOne";
 import { StepTwo } from "./features/StepTwo";
+
 export default function Home() {
   const [steps, setSteps] = useState(1);
+
   const firstStep = steps === 1;
   const secondStep = steps === 2;
   const thirdStep = steps === 3;
@@ -17,12 +18,15 @@ export default function Home() {
   const handleNextStep = () => {
     setSteps(steps + 1);
   };
-  const handleBackButton = () => setSteps(steps - 1);
+
+  const handleBackButton = () => {
+    setSteps(steps - 1);
+  };
 
   return (
     <div className="w-screen h-screen flex justify-center items-center ">
-      {firstStep  && <StepOne  steps = {steps} handleNextStep={handleNextStep}   /> }
-      {secondStep && <StepTwo  steps = {steps}  handleNextStep={handleNextStep}/> }
+      {firstStep && <StepOne step={steps} handleNextStep={handleNextStep} />}
+      {secondStep && <StepTwo steps={steps} handleNextStep={handleNextStep}  handleBackButton = {handleBackButton}/>}
       {thirdStep && (
         <div className="w-120 h-163.75  flex justify-center  border rounded-lg">
           <div className=" p-8 flex  flex-col justify-between ">
