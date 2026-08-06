@@ -134,7 +134,7 @@ export const StepOne = (props) => {
               <span className="text-red-600 ">*</span>
             </p>
             <input
-              className="w-104 h-11 rounded-lg border  border-blue-400  "
+              className= { `w-104 h-11 rounded-lg border ${firstNameError ? "border-red-400" : "border-blue-400"}`}
               placeholder="First name"
               onChange={handleFirstNameInputChange}
               value={firstName}
@@ -145,7 +145,7 @@ export const StepOne = (props) => {
               <span className="text-red-600 text-sm">*</span>
             </p>
             <input
-              className="w-104 h-11 rounded-lg border border-blue-400"
+              className= { `w-104 h-11 rounded-lg border ${lastNameError ? "border-red-400" : "border-blue-400"}`}
               placeholder="Last name"
               onChange={handleLastNameInputChange}
               value={lastName}

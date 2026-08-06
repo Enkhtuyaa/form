@@ -148,7 +148,7 @@ export const StepTwo = (props) => {
               <span className="text-red-600">*</span>
             </p>
             <input
-              className="w-104 h-11 rounded-lg border border-blue-400"
+              className= { `w-104 h-11 rounded-lg border ${EmailError ? "border-red-400" : "border-blue-400"}`}
               placeholder="Email"
               onChange={handleEmailInputChange}
               value={Email}
@@ -159,7 +159,7 @@ export const StepTwo = (props) => {
               <span className="text-red-600 text-sm">*</span>
             </p>
             <input
-              className="w-104 h-11 rounded-lg border border-blue-400"
+              className= { `w-104 h-11 rounded-lg border ${PhoneNumberError ? "border-red-400" : "border-blue-400"}`}
               placeholder="Phone number"
               onChange={handlePhoneNumberInputChange}
               value={PhoneNumber}
@@ -170,7 +170,7 @@ export const StepTwo = (props) => {
               <span className="text-red-600 text-sm">*</span>
             </p>
             <input
-              className="w-104 h-11 rounded-lg border border-blue-400"
+              className=  { `w-104 h-11 rounded-lg border ${PasswordError ? "border-red-400" : "border-blue-400"}`}
               placeholder="Password"
               onChange={handlePasswordInputChange}
               value={Password}
@@ -181,8 +181,8 @@ export const StepTwo = (props) => {
               <span className="text-red-600">*</span>
             </p>
             <input
-              className="w-104 h-11 rounded-lg border border-blue-400"
-              placeholder="Confrim password"
+              className=  { `w-104 h-11 rounded-lg border ${ ConfirmPasswordError ? "border-red-400" : "border-blue-400"}`}
+              placeholder="Confirm password"
               onChange={handleConfirmInputChange}
               value={ConfirmPassword}
             />
