@@ -34,6 +34,7 @@ const checkEachPassword = (value) => {
   return true;
 };
 
+
 export const StepTwo = (props) => {
   // const [steps, setSteps] = useState(1);
   const [Email, setEmail] = useState("");
@@ -42,8 +43,8 @@ export const StepTwo = (props) => {
   const [PhoneNumberError, setPhoneNumberError] = useState("");
   const [Password, setPassword] = useState("");
   const [PasswordError, setPasswordError] = useState("");
-  const [Confirm, setConfirm] = useState("")
-  const [ConfirmError, setConfirmError] = useState("")
+  const [ConfirmPassword, setConfirmPassword] = useState("");
+  const [ConfirmPasswordError, setConfirmPasswordError] = useState("");
   // const steps = props.steps;
   // console.log("steps for stepTwo", steps);
 
@@ -96,28 +97,41 @@ export const StepTwo = (props) => {
       return "";
     }
   };
- 
-  // const handleConfirmInputChange = (e) => {
-  //   setConfirm(e.target.value);
-  // }
-   
-  
+
+  const handleConfirmInputChange = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
+  const validateConfirmPassword = (ConfirmPassword) => {
+    if (ConfirmPassword.length === 0) {
+      return "Confirm password required";
+    } else if (Password !== ConfirmPassword) {
+      return "Passwords and Confirm Password do not match";
+    } else {
+      return ""
+    }
+  };
   const handleNextButtonClick = () => {
     const EmailError = validateEmail(Email);
     setEmailError(EmailError);
 
     const PhoneNumberError = validatePhoneNumber(PhoneNumber);
     setPhoneNumberError(PhoneNumberError);
+
     const PasswordError = validatePassword(Password);
     setPasswordError(PasswordError);
 
-    if (EmailError === "" && PhoneNumberError === "" && PasswordError === "") {
-      props.handleNextStep();
+    const ConfirmPasswordError = validateConfirmPassword(ConfirmPassword);
+    setConfirmPasswordError(ConfirmPasswordError)
+
+    if (EmailError === "" && PhoneNumberError === "" && PasswordError === "" && ConfirmPasswordError==="") {
+      props.handleNextStep()
+      
     }
   };
 
   return (
-    <div className="w-120 h-163.75  flex justify-center  border rounded-lg">
+    <div className="w-120 min-h-full  flex justify-center  border rounded-lg">
       <div className=" p-8 flex  flex-col justify-between ">
         <div className="w-104 h-96.25 ">
           <span>
@@ -168,14 +182,17 @@ export const StepTwo = (props) => {
             </p>
             <input
               className="w-104 h-11 rounded-lg border border-blue-400"
-              placeholder="Placeholder"
+              placeholder="Confrim password"
+              onChange={handleConfirmInputChange}
+              value={ConfirmPassword}
             />
+       <span className="text-red-600 text-sm"> {ConfirmPasswordError}</span>
           </div>
         </div>
         <div className="flex gap-2">
           <button
             className="w-32 h-11 border rounded-md font-medium  flex justify-center items-center"
-            // onClick={handleBackButton}
+            onClick={props.handleBackButton}
           >
             <BackVectorLogo />
             Back
