@@ -131,7 +131,7 @@ export const StepTwo = (props) => {
   };
 
   return (
-    <div className="w-120 min-h-full  flex justify-center  border rounded-lg">
+    <div className="w-120 min-h-full   bg-white  flex justify-center   rounded-lg">
       <div className=" p-8 flex  flex-col justify-between ">
         <div className="w-104 h-96.25 ">
           <span>

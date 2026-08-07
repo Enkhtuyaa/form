@@ -39,8 +39,8 @@ const checkEachCharacters = (name) => {
 // }
 
 export const StepOne = (props) => {
-  console.log("props for stepOne: ", props);
-  console.log("step for stepOne: ", props.step);
+  // console.log("props for stepOne: ", props);
+  // console.log("step for stepOne: ", props.step);
 
   const [firstName, setFirstName] = useState("");
   const [firstNameError, setFirstNameError] = useState("");
@@ -117,7 +117,7 @@ export const StepOne = (props) => {
   };
 
   return (
-    <div className="w-120 h-163.75  flex justify-center  border rounded-lg">
+    <div className="w-120 h-163.75  bg-white  flex justify-center   rounded-lg">
       <div className=" p-8 flex  flex-col justify-between ">
         <div className="w-104 h-96.25 ">
           <span>

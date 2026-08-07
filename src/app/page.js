@@ -3,6 +3,7 @@
 import { PineconeLogo } from "./icons/PineconeLogo";
 import { VectorLogo } from "./icons/VectorLogo";
 import { BackVectorLogo } from "./icons/BackVectorLogo";
+import { Icon } from "./icons/Icon";
 import { useState } from "react";
 import { StepOne } from "./features/StepOne";
 import { StepTwo } from "./features/StepTwo";
@@ -25,7 +26,7 @@ export default function Home() {
     setSteps(steps - 1);
   };
   return (
-    <div className="w-screen h-screen flex justify-center items-center ">
+    <div className="w-screen h-screen bg-gray-300 flex justify-center items-center ">
       {firstStep && <StepOne step={steps} handleNextStep={handleNextStep} />}
       {secondStep && (
         <StepTwo
