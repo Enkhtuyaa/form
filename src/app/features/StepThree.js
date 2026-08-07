@@ -5,6 +5,14 @@ import { BackVectorLogo } from "../icons/BackVectorLogo";
 import { Icon } from "../icons/Icon";
 import Image from "next/image";
 
+const getDate = () => {
+  if (typeof window === "undefined") {
+    return null;
+  } else {
+    const getDate = JSON.parse(localStorage.getItem("Date"));
+  }
+};
+
 export const StepThree = (props) => {
   const [Date, setDate] = useState("");
   const [DateError, setDateError] = useState("");
@@ -13,6 +21,7 @@ export const StepThree = (props) => {
 
   const handleDateInputChange = (e) => {
     setDate(e.target.value);
+    JSON.stringify(localStorage.setItem("Date", Date));
   };
 
   const validateDate = (Date) => {
@@ -25,14 +34,15 @@ export const StepThree = (props) => {
 
   const handlePictureInputChange = (e) => {
     setPicture(e.target.files[0]);
+    JSON.stringify(localStorage.setItem("Picture", Picture));
   };
 
-// const handlePictureInputChange = (e) => {
-//   // Файл сонгосон эсэхийг баталгаажуулна
-//   if (e.target.files && e.target.files[0]) {
-//     setPicture(e.target.files[0]);
-//   }
-// };
+  // const handlePictureInputChange = (e) => {
+  //   // Файл сонгосон эсэхийг баталгаажуулна
+  //   if (e.target.files && e.target.files[0]) {
+  //     setPicture(e.target.files[0]);
+  //   }
+  // };
 
   const validatePicture = (Picture) => {
     if (!Picture) {

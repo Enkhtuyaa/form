@@ -34,6 +34,29 @@ const checkEachPassword = (value) => {
   return true;
 };
 
+const getEmail = () => {
+  if (typeof window === "undefined"){
+    return null;
+  } else {
+    const getEmail = JSON.parse(localStorage.getItem("Email"))
+  }
+}
+
+// const getEmail = () => {
+//   // Next.js эсвэл SSR орчинд window байхгүй бол null буцаана
+//   if (typeof window === "undefined") {
+//     return null;
+//   }
+
+//   try {
+//     const savedEmail = localStorage.getItem("Email");
+//     // Утга байвал JSON.parse хийнэ, байхгүй бол null буцаана
+//     return savedEmail ? JSON.parse(savedEmail) : null;
+//   } catch (error) {
+//     console.error("Email уншихад алдаа гарлаа:", error);
+//     return null;
+//   }
+// };
 
 export const StepTwo = (props) => {
   // const [steps, setSteps] = useState(1);
@@ -50,6 +73,7 @@ export const StepTwo = (props) => {
 
   const handleEmailInputChange = (e) => {
     setEmail(e.target.value);
+     JSON.stringify(localStorage.setItem("Email", Email))
     // console.log(e, "this is props")
   };
 
@@ -66,6 +90,7 @@ export const StepTwo = (props) => {
 
   const handlePhoneNumberInputChange = (e) => {
     setPhoneNumber(e.target.value);
+     JSON.stringify(localStorage.setItem("PhoneNumber", PhoneNumber))
   };
 
   const validatePhoneNumber = (PhoneNumber) => {
@@ -83,6 +108,7 @@ export const StepTwo = (props) => {
 
   const handlePasswordInputChange = (e) => {
     setPassword(e.target.value);
+     JSON.stringify(localStorage.setItem("Password", Password))
   };
 
   const validatePassword = (Password) => {
@@ -100,6 +126,7 @@ export const StepTwo = (props) => {
 
   const handleConfirmInputChange = (e) => {
     setConfirmPassword(e.target.value);
+     JSON.stringify(localStorage.setItem("ConfirmPassword", ConfirmPassword))
   };
 
   const validateConfirmPassword = (ConfirmPassword) => {

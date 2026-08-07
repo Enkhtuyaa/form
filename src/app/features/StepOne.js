@@ -17,7 +17,7 @@ const ALREADY_TAKEN_USER_NAME = ["bat", "bold", "test", "tuya"];
 const checkEachCharacters = (name) => {
   // console.log("checkEachCharacters deer orj irsen name:", name);
 
-  if (!ALREADY_TAKEN_USER_NAME.includes(name.toLowerCase())) {
+  if (ALREADY_TAKEN_USER_NAME.includes(name.toLowerCase())) {
     return false;
     // console.log("ene ner hediinee bna");
   } else {
@@ -38,6 +38,15 @@ const checkEachCharacters = (name) => {
 //   return false
 // }
 
+const getfirstName = () => {
+  if (typeof window === "undefined") {
+    return null;
+  } else {
+    const getFirst = JSON.parse(localStorage.getItem("firstName"));
+    return getFirst;
+  }
+};
+
 export const StepOne = (props) => {
   // console.log("props for stepOne: ", props);
   // console.log("step for stepOne: ", props.step);
@@ -51,9 +60,11 @@ export const StepOne = (props) => {
 
   const handleFirstNameInputChange = (e) => {
     setFirstName(e.target.value);
+    JSON.stringify(localStorage.setItem("firstName", firstName));
     // console.log(e, "this is props")
   };
   //   console.log(firstName);
+
   const validateFirstName = (firstName) => {
     const allLowerFirstName = firstName.trim().toLowerCase();
     if (allLowerFirstName.length === 0) {
@@ -73,7 +84,9 @@ export const StepOne = (props) => {
 
   const handleLastNameInputChange = (e) => {
     setLastName(e.target.value);
+    JSON.stringify(localStorage.setItem("lastName", lastName));
   };
+  
   const validateLastName = (lastName) => {
     const allLowerLastName = lastName.trim().toLowerCase();
     if (allLowerLastName.length === 0) {
@@ -84,19 +97,23 @@ export const StepOne = (props) => {
       return "";
     }
   };
+
   const handleUsernameInputChange = (e) => {
     setUsername(e.target.value);
+    JSON.stringify(localStorage.setItem("Username", Username));
   };
+
   const validateUsername = (Username) => {
     const allLowerUsername = Username.trim().toLowerCase();
     if (allLowerUsername.length === 0) {
       return "Username Required";
     } else if (!checkEachCharacters(allLowerUsername)) {
-      return "Username only contains letter";
+      return "Username is already taken";
     } else {
       return "";
     }
   };
+
   const handleNextButtonClick = () => {
     const firstError = validateFirstName(firstName);
     const lastError = validateLastName(lastName);
@@ -134,7 +151,7 @@ export const StepOne = (props) => {
               <span className="text-red-600 ">*</span>
             </p>
             <input
-              className= { `w-104 h-11 rounded-lg border ${firstNameError ? "border-red-400" : "border-blue-400"}`}
+              className={`w-104 h-11 rounded-lg border ${firstNameError ? "border-red-400" : "border-blue-400"}`}
               placeholder="First name"
               onChange={handleFirstNameInputChange}
               value={firstName}
@@ -145,7 +162,7 @@ export const StepOne = (props) => {
               <span className="text-red-600 text-sm">*</span>
             </p>
             <input
-              className= { `w-104 h-11 rounded-lg border ${lastNameError ? "border-red-400" : "border-blue-400"}`}
+              className={`w-104 h-11 rounded-lg border ${lastNameError ? "border-red-400" : "border-blue-400"}`}
               placeholder="Last name"
               onChange={handleLastNameInputChange}
               value={lastName}

@@ -11,10 +11,5 @@ export const StepFinal = (props) => {
          <p className="font-semibold">You are All Set 🔥</p>
          <p className="font-normal text-gray-300"> We have received your submission. Thank you!</p>
           </div>
-        </div>)
- 
-
-
-
-    
+        </div>)  
 }
