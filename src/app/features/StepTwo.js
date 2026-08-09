@@ -42,21 +42,6 @@ const getEmail = () => {
   }
 }
 
-// const getEmail = () => {
-//   // Next.js эсвэл SSR орчинд window байхгүй бол null буцаана
-//   if (typeof window === "undefined") {
-//     return null;
-//   }
-
-//   try {
-//     const savedEmail = localStorage.getItem("Email");
-//     // Утга байвал JSON.parse хийнэ, байхгүй бол null буцаана
-//     return savedEmail ? JSON.parse(savedEmail) : null;
-//   } catch (error) {
-//     console.error("Email уншихад алдаа гарлаа:", error);
-//     return null;
-//   }
-// };
 
 export const StepTwo = (props) => {
   // const [steps, setSteps] = useState(1);
