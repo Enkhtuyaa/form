@@ -129,21 +129,6 @@ export const StepOne = (props) => {
               onChange={handleInputChange}
               error={stepOneErrors.UsernameError}
             />
-            {/* <p className="font-semibold text-sm">
-              Username
-              <span className="text-red-600 text-sm">*</span>
-            </p>
-            <input
-              className={`w-104 h-11 rounded-lg border  ${stepOneErrors.UsernameError ? "border-red-400" : "border-blue-400"}`}
-              placeholder="Username"
-              onChange={handleInputChange}
-              name="Username"
-              value={stepOneValues.Username}
-            />
-            <span className="text-red-600 text-sm">
-              {" "}
-              {stepOneErrors.UsernameError}
-            </span> */}
           </div>
         </div>
         <button

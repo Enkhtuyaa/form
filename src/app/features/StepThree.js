@@ -42,13 +42,6 @@ export const StepThree = (props) => {
     JSON.stringify(localStorage.setItem("Picture", Picture));
   };
 
-  // const handlePictureInputChange = (e) => {
-  //   // Файл сонгосон эсэхийг баталгаажуулна
-  //   if (e.target.files && e.target.files[0]) {
-  //     setPicture(e.target.files[0]);
-  //   }
-  // };
-
   const validatePicture = (Picture) => {
     if (!Picture) {
       return "Image cannot be blank";

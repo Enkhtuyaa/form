@@ -2,6 +2,7 @@ import { useState } from "react";
 import { PineconeLogo } from "../icons/PineconeLogo";
 import { VectorLogo } from "../icons/VectorLogo";
 import { BackVectorLogo } from "../icons/BackVectorLogo";
+import { StepTwoFormInput } from "../Components/StepTwoFormInput";
 
 const checkEachCharacter = (email) => {
   // console.log("checkEachCharacter" , target)
@@ -62,9 +63,9 @@ export const StepTwo = (props) => {
   const handleInputChange = (e) => {
     const key = e.target.name;
     const value = e.target.value;
-    console.log(key, value)
+    console.log(key, value);
     setStepTwoValues({ ...stepTwoValues, [key]: value });
-  }; 
+  };
 
   const validateEmail = (email) => {
     const allLowerEmail = email.trim().toLowerCase();
@@ -80,13 +81,13 @@ export const StepTwo = (props) => {
   const validatePhoneNumber = (phoneNumber) => {
     const allLowerPhoneNumber = phoneNumber.trim();
     if (allLowerPhoneNumber.length === 0) {
-      return "Phone number is required" ;
+      return "Phone number is required";
     } else if (allLowerPhoneNumber.length < 8) {
-      return "Phone number has less than 8 digits" ;
+      return "Phone number has less than 8 digits";
     } else if (!checkEachNumbers(allLowerPhoneNumber)) {
       return "Phone number only contains number";
-    } else { 
-       return "";
+    } else {
+      return "";
     }
   };
 
@@ -104,8 +105,8 @@ export const StepTwo = (props) => {
   };
 
   const validateConfirmPassword = (confirmPassword, password) => {
-     const allLowerConfirmPassword = confirmPassword.trim();
-     const allLowerPassword = password.trim()
+    const allLowerConfirmPassword = confirmPassword.trim();
+    const allLowerPassword = password.trim();
     if (allLowerConfirmPassword.length === 0) {
       return "Confirm password required";
     } else if (allLowerConfirmPassword !== allLowerPassword) {
@@ -114,21 +115,23 @@ export const StepTwo = (props) => {
       return "";
     }
   };
-  
+
   const handleNextButtonClick = () => {
     const errors = {
-      EmailError: validateEmail( stepTwoValues.Email),
+      EmailError: validateEmail(stepTwoValues.Email),
       PhoneNumberError: validatePhoneNumber(stepTwoValues.PhoneNumber),
-      PasswordError: validatePassword( stepTwoValues.Password),
-      ConfirmPasswordError: validateConfirmPassword(stepTwoValues.ConfirmPassword, stepTwoValues.Password),
+      PasswordError: validatePassword(stepTwoValues.Password),
+      ConfirmPasswordError: validateConfirmPassword(
+        stepTwoValues.ConfirmPassword,
+        stepTwoValues.Password,
+      ),
     };
     setStepTwoErrors(errors);
     // console.log(errors, "this is the errors");
-    const objecttrue = Object.values(errors).every((error) => error === "")
-    if(objecttrue){
-      props.handleNextStep()
+    const objecttrue = Object.values(errors).every((error) => error === "");
+    if (objecttrue) {
+      props.handleNextStep();
     }
-  
   };
 
   return (
@@ -144,57 +147,34 @@ export const StepTwo = (props) => {
           </p>
 
           <div className="py-7 flex gap-3 flex-col">
-            <p className="font-semibold text-sm ">
-              Email
-              <span className="text-red-600">*</span>
-            </p>
-            <input
-              className={`w-104 h-11 rounded-lg border ${stepTwoErrors.EmailError ? "border-red-400" : "border-blue-400"}`}
-              placeholder="Email"
-              onChange={handleInputChange}
-              name="Email"
+            <StepTwoFormInput
+              label="Email"
               value={stepTwoValues.Email}
-            />
-            <span className="text-red-600 text-sm"> {stepTwoErrors.EmailError}</span>
-            <p className="font-semibold text-sm">
-              Phone number
-              <span className="text-red-600 text-sm">*</span>
-            </p>
-            <input
-              className={`w-104 h-11 rounded-lg border ${stepTwoErrors.PhoneNumberError ? "border-red-400" : "border-blue-400"}`}
-              placeholder="Phone number"
+              name="Email"
               onChange={handleInputChange}
-              name="PhoneNumber"
+              error={stepTwoErrors.EmailError}
+            />
+            <StepTwoFormInput
+              label="Phone number"
               value={stepTwoValues.PhoneNumber}
-            />
-            <span className="text-red-600 text-sm"> {stepTwoErrors.PhoneNumberError}</span>
-            <p className="font-semibold text-sm">
-              Password
-              <span className="text-red-600 text-sm">*</span>
-            </p>
-            <input
-              className={`w-104 h-11 rounded-lg border ${stepTwoErrors.PasswordError ? "border-red-400" : "border-blue-400"}`}
-              placeholder="Password"
+              name="PhoneNumber"
               onChange={handleInputChange}
-              name="Password"
+              error={stepTwoErrors.PhoneNumberError}
+            />
+            <StepTwoFormInput
+              label="Password"
               value={stepTwoValues.Password}
-            />
-            <span className="text-red-600 text-sm"> {stepTwoErrors.PasswordError}</span>
-            <p className="font-semibold text-sm">
-              Confirm Password
-              <span className="text-red-600">*</span>
-            </p>
-            <input
-              className={`w-104 h-11 rounded-lg border ${stepTwoErrors.ConfirmPasswordError ? "border-red-400" : "border-blue-400"}`}
-              placeholder="Confirm password"
+              name="Password"
               onChange={handleInputChange}
-              name="ConfirmPassword"
-              value={stepTwoValues.ConfirmPassword}
+              error={stepTwoErrors.PasswordError}
             />
-            <span className="text-red-600 text-sm">
-              {" "}
-              {stepTwoErrors.ConfirmPasswordError}
-            </span>
+            <StepTwoFormInput
+              label="Confirm Password"
+              value={stepTwoValues.ConfirmPassword}
+              name="Confirm Password"
+              onChange={handleInputChange}
+              error={stepTwoErrors.ConfirmPasswordError}
+            />
           </div>
         </div>
         <div className="flex gap-2">
