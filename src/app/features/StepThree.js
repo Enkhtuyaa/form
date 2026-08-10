@@ -13,6 +13,10 @@ const getDate = () => {
   }
 };
 
+// const initialValues = {
+// Date: "",
+// Picture: "",
+// }
 
 export const StepThree = (props) => {
   const [Date, setDate] = useState("");
