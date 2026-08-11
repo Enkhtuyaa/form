@@ -171,7 +171,7 @@ export const StepTwo = (props) => {
             <StepTwoFormInput
               label="Confirm Password"
               value={stepTwoValues.ConfirmPassword}
-              name="Confirm Password"
+              name="ConfirmPassword"
               onChange={handleInputChange}
               error={stepTwoErrors.ConfirmPasswordError}
             />

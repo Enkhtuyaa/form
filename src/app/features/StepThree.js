@@ -5,45 +5,43 @@ import { BackVectorLogo } from "../icons/BackVectorLogo";
 import { Icon } from "../icons/Icon";
 import Image from "next/image";
 
-const getDate = () => {
-  if (typeof window === "undefined") {
-    return null;
-  } else {
-    const getDate = JSON.parse(localStorage.getItem("Date"));
-  }
+const initialValues = {
+  date: "",
+  picture: "",
 };
 
-// const initialValues = {
-// Date: "",
-// Picture: "",
-// }
+const initialValuesError = {
+  dateError: "",
+  pictureError: "",
+};
 
 export const StepThree = (props) => {
-  const [Date, setDate] = useState("");
-  const [DateError, setDateError] = useState("");
-  const [Picture, setPicture] = useState("");
-  const [PictureError, setPictureError] = useState("");
+  const [stepThreeValues, setStepThreeValues] = useState(initialValues);
+  const [stepThreeErrors, setStepThreeErrors] = useState(initialValuesError);
 
-  const handleDateInputChange = (e) => {
-    setDate(e.target.value);
-    JSON.stringify(localStorage.setItem("Date", Date));
+  const handleInputChange = (e) => {
+    const key = e.target.name;
+    const value = e.target.value;
+    setStepThreeValues({ ...stepThreeValues, [key]: value });
   };
 
-  const validateDate = (Date) => {
-    if (!Date) {
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setStepThreeValues({ ...stepThreeValues, picture: file });
+    }
+  };
+  
+  const validateDate = (date) => {
+    if (!date) {
       return "Please select a date.";
     } else {
       return "";
     }
   };
 
-  const handlePictureInputChange = (e) => {
-    setPicture(e.target.files[0]);
-    JSON.stringify(localStorage.setItem("Picture", Picture));
-  };
-
-  const validatePicture = (Picture) => {
-    if (!Picture) {
+  const validatePicture = (picture) => {
+    if (!picture) {
       return "Image cannot be blank";
     } else {
       return "";
@@ -51,13 +49,17 @@ export const StepThree = (props) => {
   };
 
   const handleNextButtonClick = () => {
-    const DateError = validateDate(Date);
-    setDateError(DateError);
+    const errors = {
+      dateError: validateDate(stepThreeValues.date),
+      pictureError: validatePicture(stepThreeValues.picture),
+    };
 
-    const PictureError = validatePicture(Picture);
-    setPictureError(PictureError);
+    setStepThreeErrors(errors);
 
-    if (DateError === "" && PictureError === "") props.handleNextStep();
+    const objecttrue = Object.values(errors).every((error) => error === "");
+    if (objecttrue) {
+      props.handleNextStep();
+    }
   };
 
   return (
@@ -81,9 +83,14 @@ export const StepThree = (props) => {
               className="w-104 h-11 rounded-lg border border-blue-400"
               placeholder="--/--/--"
               type="Date"
-              onChange={handleDateInputChange}
+              onChange={handleInputChange}
+              name="date"
+              value={stepThreeValues.Dateofbirth}
             />
-            <span className="text-red-600 text-sm"> {DateError}</span>
+            <span className="text-red-600 text-sm">
+              {" "}
+              {stepThreeErrors.dateError}
+            </span>
             <p className="font-semibold text-sm">
               Profile image
               <span className="text-red-600">*</span>
@@ -92,15 +99,17 @@ export const StepThree = (props) => {
               <input
                 type="file"
                 accept="Image/*"
-                onChange={handlePictureInputChange}
+                onChange={handleInputChange}
                 className="hidden"
+                name="picture"
+                value={stepThreeValues.Profileimage}
                 // onChange={(e) => console.log(e.target.files[0])}
               />
-              {Picture ? (
+              {stepThreeValues.picture ? (
                 <Image
-                  src={URL.createObjectURL(Picture)} // 1. (Picture)-ийг нэмж функцээ дуудна
+                  src={URL.createObjectURL(stepThreeValues.picture)} // 1. (Picture)-ийг нэмж функцээ дуудна
                   alt="Profile preview"
-                  fill // 2. Хүрээгээ дүүргэж харуулах
+                  fill // 2. Хүрээгээ дүүргэж харуула.х
                   unoptimized // 3. Blob URL дээр Next.js алдаа гарахаас сэргийлнэ
                   className="object-cover"
                 />
@@ -113,7 +122,10 @@ export const StepThree = (props) => {
                 </div>
               )}
             </label>
-            <span className="text-red-600 text-sm"> {PictureError}</span>
+            <span className="text-red-600 text-sm">
+              {" "}
+              {stepThreeErrors.pictureError}
+            </span>
             {/* <input className="w-104 h-45 text-gray-600 flex justify-center items-center bg-gray-200 rounded-lg border-amber-700 " /> */}
           </div>
         </div>
