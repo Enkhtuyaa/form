@@ -30,8 +30,15 @@ export const StepThree = (props) => {
     if (file) {
       setStepThreeValues({ ...stepThreeValues, picture: file });
     }
+    e.target.value = "";
   };
-  
+
+  const handleImageDelete = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setStepThreeValues({ ...stepThreeValues, picture: "" });
+  };
+
   const validateDate = (date) => {
     if (!date) {
       return "Please select a date.";
@@ -82,10 +89,10 @@ export const StepThree = (props) => {
             <input
               className="w-104 h-11 rounded-lg border border-blue-400"
               placeholder="--/--/--"
-              type="Date"
+              type="date"
               onChange={handleInputChange}
               name="date"
-              value={stepThreeValues.Dateofbirth}
+              value={stepThreeValues.date}
             />
             <span className="text-red-600 text-sm">
               {" "}
@@ -98,21 +105,27 @@ export const StepThree = (props) => {
             <label className="w-104 h-45 rounded-md bg-gray-200 flex items-center justify-center cursor-pointer overflow-hidden relative">
               <input
                 type="file"
-                accept="Image/*"
-                onChange={handleInputChange}
+                accept="image/*"
+                onChange={handleImageChange}
                 className="hidden"
                 name="picture"
-                value={stepThreeValues.Profileimage}
-                // onChange={(e) => console.log(e.target.files[0])}
               />
               {stepThreeValues.picture ? (
-                <Image
-                  src={URL.createObjectURL(stepThreeValues.picture)} // 1. (Picture)-ийг нэмж функцээ дуудна
-                  alt="Profile preview"
-                  fill // 2. Хүрээгээ дүүргэж харуула.х
-                  unoptimized // 3. Blob URL дээр Next.js алдаа гарахаас сэргийлнэ
-                  className="object-cover"
-                />
+                <>
+                  <Image
+                    src={URL.createObjectURL(stepThreeValues.picture)}
+                    alt="Profile preview"
+                    fill
+                    unoptimized
+                    className="object-cover"
+                  />
+                  <div
+                    onClick={handleImageDelete}
+                    className="absolute top-2 right-2 w-8 h-8 rounded-full bg-black/60 text-white flex items-center justify-center cursor-pointer hover:bg-black z-10"
+                  >
+                    ✕
+                  </div>
+                </>
               ) : (
                 <div className="flex flex-col justify-center items-center  gap-2">
                   <div className=" w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm">
@@ -126,7 +139,6 @@ export const StepThree = (props) => {
               {" "}
               {stepThreeErrors.pictureError}
             </span>
-            {/* <input className="w-104 h-45 text-gray-600 flex justify-center items-center bg-gray-200 rounded-lg border-amber-700 " /> */}
           </div>
         </div>
         <div className="flex gap-2">
